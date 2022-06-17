@@ -1,0 +1,39 @@
+{
+	"schemaVersion": 1,
+	"id": "sessility",
+	"version": "0.1",
+	"environment": "server",
+	"entrypoints": {
+		"server": [
+			"net.bytzo.sessility.Sessility"
+		]
+	},
+	"mixins": [
+		{
+			"config": "sessility.mixins.json",
+			"environment": "server"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.6",
+		"java": ">=17",
+		"minecraft": "~1.19"
+	},
+	"name": "Sessility",
+	"description": "Keeps track of sessile creatures, more often known as \"AFK players\".",
+	"authors": [
+		{
+			"name": "Bytzo",
+			"contact": {
+				"email": "bytzo@bytzo.net",
+				"homepage": "https://bytzo.net"
+			}
+		}
+	],
+	"contact": {
+		"issues": "https://github.com/bytzo/sessility/issues",
+		"sources": "https://github.com/bytzo/sessility"
+	},
+	"license": "MIT",
+	"icon": "assets/sessility/icon.png"
+}

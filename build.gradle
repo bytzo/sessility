@@ -1,0 +1,22 @@
+plugins {
+	id('fabric-loom').version('0.12-SNAPSHOT')
+}
+
+group = 'net.bytzo'
+version = '0.1'
+
+dependencies {
+	minecraft('com.mojang:minecraft:1.19')
+	mappings(loom.officialMojangMappings())
+	modImplementation('net.fabricmc:fabric-loader:0.14.6')
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+jar {
+	from('LICENSE')
+}

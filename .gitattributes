@@ -1,0 +1,8 @@
+# Automatic end-of-line conversion for unspecified paths.
+* text=auto
+
+# Ensure the Gradle Wrapper shell script uses LF line endings.
+/gradlew text eol=lf
+
+# Ensure the Gradle Wrapper batch file uses CRLF line endings.
+/gradlew.bat text eol=crlf
