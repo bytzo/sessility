@@ -1,35 +1,35 @@
-name: 'Gradle CI'
+name: Gradle CI
 on:
-  - 'push'
-  - 'pull_request'
+  - push
+  - pull_request
 permissions:
-    contents: 'read'
+    contents: read
 jobs:
     build:
-        name: 'Gradle build'
-        runs-on: 'ubuntu-latest'
+        name: Gradle build
+        runs-on: ubuntu-latest
         steps:
-          - name: 'Checkout repository'
-            uses: 'actions/checkout@v3'
-          - name: 'Validate Gradle Wrapper'
-            uses: 'gradle/wrapper-validation-action@v1'
-          - name: 'Setup Java'
-            uses: 'actions/setup-java@v3'
+          - name: Checkout repository
+            uses: actions/checkout@v3
+          - name: Validate Gradle Wrapper
+            uses: gradle/wrapper-validation-action@v1
+          - name: Setup Java
+            uses: actions/setup-java@v3
             with:
-                distribution: 'temurin'
-                java-version: '17'
-          - name: 'Gradle build'
-            uses: 'gradle/gradle-build-action@v2'
+                distribution: temurin
+                java-version: 17
+          - name: Gradle build
+            uses: gradle/gradle-build-action@v2
             with:
-                arguments: 'build'
-          - id: 'build_info'
-            name: 'Get build info'
+                arguments: build
+          - id: build_info
+            name: Get build info
             run: |
                 echo "::set-output name=repository_name::$(basename $GITHUB_REPOSITORY)"
                 echo "::set-output name=sha_short::${GITHUB_SHA::7}"
-            shell: 'bash'
-          - name: 'Upload build artifacts'
-            uses: 'actions/upload-artifact@v3'
+            shell: bash
+          - name: Upload build artifacts
+            uses: actions/upload-artifact@v3
             with:
-                name: '${{ steps.build_info.outputs.repository_name }}-build-artifacts-${{ steps.build_info.outputs.sha_short }}'
-                path: 'build/libs/'
+                name: ${{ steps.build_info.outputs.repository_name }}-build-artifacts-${{ steps.build_info.outputs.sha_short }}
+                path: build/libs/
