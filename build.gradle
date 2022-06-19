@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'net.bytzo'
-version = '0.1'
+version = '0.2'
 
 dependencies {
 	minecraft('com.mojang:minecraft:1.19')
