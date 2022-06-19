@@ -12,4 +12,8 @@ By default, any player idling for more than 120 seconds is considered sessile. S
 # The idle time in seconds before a player is considered sessile.
 # Default: 120
 sessile-timeout=120
+
+# The color of the sessile display name.
+# Default: gray
+sessile-display-color=gray
 ```

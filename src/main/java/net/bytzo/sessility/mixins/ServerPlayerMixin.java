@@ -16,6 +16,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -65,11 +67,12 @@ public abstract class ServerPlayerMixin extends Player {
 
 	@Inject(method = "getTabListDisplayName()Lnet/minecraft/network/chat/Component;", at = @At("RETURN"), cancellable = true)
 	private void postGetTabListDisplayName(CallbackInfoReturnable<Component> callbackInfo) {
-		// If sessile, make the player's display name gray.
+		// If sessile, change the color of the player's display name.
 		if (this.sessile) {
 			var profileName = Component.literal(this.getGameProfile().getName());
 			var teamFormattedName = PlayerTeam.formatNameForTeam(this.getTeam(), profileName);
-			var displayName = teamFormattedName.withStyle(ChatFormatting.GRAY);
+			var displayColor = TextColor.parseColor(Sessility.settings().properties().sessileDisplayColor);
+			var displayName = teamFormattedName.withStyle(Style.EMPTY.withColor(displayColor));
 
 			callbackInfo.setReturnValue(displayName);
 		}
