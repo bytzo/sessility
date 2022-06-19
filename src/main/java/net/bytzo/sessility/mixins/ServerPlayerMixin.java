@@ -22,6 +22,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.ProfilePublicKey;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.scores.PlayerTeam;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player {
@@ -66,7 +67,10 @@ public abstract class ServerPlayerMixin extends Player {
 	private void postGetTabListDisplayName(CallbackInfoReturnable<Component> callbackInfo) {
 		// If sessile, make the player's display name gray.
 		if (this.sessile) {
-			var displayName = Component.literal(this.getGameProfile().getName()).withStyle(ChatFormatting.GRAY);
+			var profileName = Component.literal(this.getGameProfile().getName());
+			var teamFormattedName = PlayerTeam.formatNameForTeam(this.getTeam(), profileName);
+			var displayName = teamFormattedName.withStyle(ChatFormatting.GRAY);
+
 			callbackInfo.setReturnValue(displayName);
 		}
 	}
