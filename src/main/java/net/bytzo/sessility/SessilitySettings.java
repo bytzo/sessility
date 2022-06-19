@@ -19,8 +19,9 @@ public class SessilitySettings {
 			this.properties = new SessilityProperties(SessilityProperties.loadFromFile(this.propertiesFile));
 		} else {
 			this.properties = new SessilityProperties(new Properties());
-			this.save();
 		}
+
+		this.save();
 	}
 
 	public void save() {
