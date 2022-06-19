@@ -8,6 +8,8 @@ import net.minecraft.server.dedicated.Settings;
 public class SessilityProperties extends Settings<SessilityProperties> {
 	public final int sessileTimeout = this.get("sessile-timeout", 120);
 	public final String sessileDisplayColor = this.get("sessile-display-color", "gray");
+	public final String messageSessile = this.get("message-sessile", "");
+	public final String messageMotile = this.get("message-motile", "");
 
 	public SessilityProperties(Properties properties) {
 		super(properties);

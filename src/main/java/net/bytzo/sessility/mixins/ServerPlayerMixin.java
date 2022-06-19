@@ -15,6 +15,7 @@ import net.bytzo.sessility.Sessility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -89,6 +90,16 @@ public abstract class ServerPlayerMixin extends Player {
 			// Without this, the player's display name will not update properly in the
 			// player tab overlay.
 			this.broadcastDisplayName();
+
+			// Broadcasts the custom sessile or motile message, if present.
+			String broadcastMessage = sessile ?
+					Sessility.settings().properties().messageSessile :
+					Sessility.settings().properties().messageMotile;
+			if (!broadcastMessage.isBlank()) {
+				var translatedMessage = Component.translatable(broadcastMessage, this.getGameProfile().getName());
+				var formattedMessage = translatedMessage.withStyle(ChatFormatting.YELLOW);
+				this.server.getPlayerList().broadcastSystemMessage(formattedMessage, ChatType.SYSTEM);
+			}
 		}
 	}
 
