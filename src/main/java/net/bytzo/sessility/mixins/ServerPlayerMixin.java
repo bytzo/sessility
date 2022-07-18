@@ -15,7 +15,6 @@ import net.bytzo.sessility.Sessility;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
@@ -98,7 +97,7 @@ public abstract class ServerPlayerMixin extends Player {
 			if (!broadcastMessage.isBlank()) {
 				var translatedMessage = Component.translatable(broadcastMessage, this.getGameProfile().getName());
 				var formattedMessage = translatedMessage.withStyle(ChatFormatting.YELLOW);
-				this.server.getPlayerList().broadcastSystemMessage(formattedMessage, ChatType.SYSTEM);
+				this.server.getPlayerList().broadcastSystemMessage(formattedMessage, false);
 			}
 		}
 	}
