@@ -3,10 +3,10 @@ plugins {
 }
 
 group = 'net.bytzo'
-version = '0.2'
+version = '0.2.1'
 
 dependencies {
-	minecraft('com.mojang:minecraft:1.19.1-pre5')
+	minecraft('com.mojang:minecraft:1.19.1')
 	mappings(loom.officialMojangMappings())
 	modImplementation('net.fabricmc:fabric-loader:0.14.8')
 }
