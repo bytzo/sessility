@@ -29,3 +29,5 @@ sessile-display-color=\#aaaaaa
 # Default: (empty)
 message-motile=%s returned from the depths
 ```
+
+Sessility's configuration file does not properly handle UTF-8 characters because of the bug [MC-2215](https://bugs.mojang.com/browse/MC-2215). You can install the [MC-2215 bugfix mod](https://github.com/bytzo/mc-2215) for proper UTF-8 support.
