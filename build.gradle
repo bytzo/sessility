@@ -1,14 +1,14 @@
 plugins {
-	id('fabric-loom').version('0.12-SNAPSHOT')
+	id('fabric-loom').version('1.0-SNAPSHOT')
 }
 
 group = 'net.bytzo'
-version = '0.2.1'
+version = '0.2.2'
 
 dependencies {
-	minecraft('com.mojang:minecraft:1.19.1')
+	minecraft('com.mojang:minecraft:1.19.3')
 	mappings(loom.officialMojangMappings())
-	modImplementation('net.fabricmc:fabric-loader:0.14.8')
+	modImplementation('net.fabricmc:fabric-loader:0.14.11')
 }
 
 java {

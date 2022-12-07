@@ -18,11 +18,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.ProfilePublicKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.scores.PlayerTeam;
 
@@ -35,8 +34,8 @@ public abstract class ServerPlayerMixin extends Player {
 	@Unique
 	private boolean sessile = false;
 
-	public ServerPlayerMixin(Level level, BlockPos spawnPos, float spawnAngle, GameProfile gameProfile, ProfilePublicKey profilePublicKey) {
-		super(level, spawnPos, spawnAngle, gameProfile, profilePublicKey);
+	public ServerPlayerMixin(Level level, BlockPos spawnPos, float spawnAngle, GameProfile gameProfile) {
+		super(level, spawnPos, spawnAngle, gameProfile);
 	}
 
 	@Shadow
@@ -104,7 +103,7 @@ public abstract class ServerPlayerMixin extends Player {
 
 	@Unique
 	private void broadcastDisplayName() {
-		var packet = new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.UPDATE_DISPLAY_NAME, (ServerPlayer) (Object) this);
+		var packet = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, (ServerPlayer) (Object) this);
 		this.server.getPlayerList().broadcastAll(packet);
 	}
 }
