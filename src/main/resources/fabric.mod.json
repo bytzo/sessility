@@ -15,9 +15,9 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.14.11",
+		"fabricloader": ">=0.14.21",
 		"java": ">=17",
-		"minecraft": "~1.19.3"
+		"minecraft": "1.20"
 	},
 	"name": "Sessility",
 	"description": "Keeps track of sessile creatures, more often known as \"AFK players\".",

@@ -6,9 +6,9 @@ group = 'net.bytzo'
 version = '0.2.2'
 
 dependencies {
-	minecraft('com.mojang:minecraft:1.19.3')
+	minecraft('com.mojang:minecraft:1.20')
 	mappings(loom.officialMojangMappings())
-	modImplementation('net.fabricmc:fabric-loader:0.14.11')
+	modImplementation('net.fabricmc:fabric-loader:0.14.21')
 }
 
 java {
