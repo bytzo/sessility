@@ -20,3 +20,7 @@ java {
 jar {
 	from('LICENSE')
 }
+
+loom {
+	serverOnlyMinecraftJar()
+}
