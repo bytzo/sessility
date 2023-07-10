@@ -5,6 +5,7 @@
 	"package": "net.bytzo.sessility.mixins",
 	"server": [
 		"ClientboundPlayerInfoUpdatePacketEntryMixin",
+		"MinecraftServerMixin",
 		"ServerPlayerMixin",
 		"SettingsMixin",
 		"SleepStatusMixin"
