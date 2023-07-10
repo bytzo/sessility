@@ -27,8 +27,8 @@ jobs:
           - id: build_info
             name: Get build info
             run: |
-                echo "::set-output name=repository_name::$(basename $GITHUB_REPOSITORY)"
-                echo "::set-output name=sha_short::${GITHUB_SHA::7}"
+                echo "repository_name=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_OUTPUT
+                echo "sha_short=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
             shell: bash
           - name: Upload build artifacts
             uses: actions/upload-artifact@v3
