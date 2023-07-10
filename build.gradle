@@ -5,10 +5,19 @@ plugins {
 group = 'net.bytzo'
 version = '0.2.4'
 
+repositories {
+	maven {
+		name = 'JitPack'
+		url = 'https://jitpack.io'
+	}
+}
+
 dependencies {
 	minecraft('com.mojang:minecraft:1.20.1')
 	mappings(loom.officialMojangMappings())
 	modImplementation('net.fabricmc:fabric-loader:0.14.21')
+
+	include(implementation(annotationProcessor('com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9')))
 }
 
 java {
