@@ -11,6 +11,7 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	public final String messageSessile = this.get("message-sessile", "");
 	public final String messageMotile = this.get("message-motile", "");
 	public final boolean skipSessileInSleepCount = this.get("skip-sessile-in-sleep-count", true);
+	public final boolean hideSessileInTabList = this.get("hide-sessile-in-tab-list", false);
 
 	public SessilityProperties(Properties properties) {
 		super(properties);

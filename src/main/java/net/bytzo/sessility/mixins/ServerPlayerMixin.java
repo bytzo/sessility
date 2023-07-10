@@ -91,6 +91,13 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 			// player tab overlay.
 			this.broadcastDisplayName();
 
+			// If configured to hide the names of sessile players in the tab list, broadcast
+			// their listed status. Without this, the player's listed status will not update
+			// properly in the player tab overlay and still show.
+			if (Sessility.settings().properties().hideSessileInTabList) {
+				this.broadcastPlayerListed();
+			}
+
 			// Broadcasts the custom sessile or motile message, if present.
 			String broadcastMessage = sessile ?
 					Sessility.settings().properties().messageSessile :
@@ -112,6 +119,12 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 	@Unique
 	private void broadcastDisplayName() {
 		var packet = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, (ServerPlayer) (Object) this);
+		this.server.getPlayerList().broadcastAll(packet);
+	}
+
+	@Unique
+	private void broadcastPlayerListed() {
+		var packet = new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_LISTED, (ServerPlayer) (Object) this);
 		this.server.getPlayerList().broadcastAll(packet);
 	}
 }
