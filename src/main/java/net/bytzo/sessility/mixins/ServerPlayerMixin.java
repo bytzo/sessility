@@ -1,5 +1,6 @@
 package net.bytzo.sessility.mixins;
 
+import net.bytzo.sessility.SessilePlayer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,7 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.scores.PlayerTeam;
 
 @Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin extends Player {
+public abstract class ServerPlayerMixin extends Player implements SessilePlayer {
 	@Shadow
 	@Final
 	public MinecraftServer server;
@@ -77,6 +78,7 @@ public abstract class ServerPlayerMixin extends Player {
 		}
 	}
 
+	@Override
 	@Unique
 	public void setSessile(boolean sessile) {
 		// Only update the player's sessility if it has changed. This prevents
@@ -99,6 +101,12 @@ public abstract class ServerPlayerMixin extends Player {
 				this.server.getPlayerList().broadcastSystemMessage(formattedMessage, false);
 			}
 		}
+	}
+
+	@Override
+	@Unique
+	public boolean isSessile() {
+		return this.sessile;
 	}
 
 	@Unique

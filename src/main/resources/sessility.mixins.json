@@ -5,7 +5,8 @@
 	"package": "net.bytzo.sessility.mixins",
 	"server": [
 		"ServerPlayerMixin",
-		"SettingsMixin"
+		"SettingsMixin",
+		"SleepStatusMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
