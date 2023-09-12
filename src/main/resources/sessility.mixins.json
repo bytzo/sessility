@@ -6,6 +6,7 @@
 	"server": [
 		"ClientboundPlayerInfoUpdatePacketEntryMixin",
 		"MinecraftServerMixin",
+		"PlayerMixin",
 		"ServerPlayerMixin",
 		"SettingsMixin",
 		"SleepStatusMixin"
