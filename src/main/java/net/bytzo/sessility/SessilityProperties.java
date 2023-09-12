@@ -17,6 +17,7 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	public final boolean advancementActionDetection = this.get("advancement-action-detection", true);
 	public final boolean advancementInteractDetection = this.get("advancement-interact-detection", true);
 	public final boolean advancementDebugMessages = this.get("advancement-debug-messages", false);
+	public final boolean rotationTriggersMotility = this.get("rotation-triggers-motility", true);
 
 	public SessilityProperties(Properties properties) {
 		super(properties);

@@ -103,4 +103,30 @@ public abstract class PlayerMixin {
 	}
 
 	/* end of advancement code */
+
+
+	@Unique
+	double last_xRot, last_yRot;
+
+	/* detect when a player rotates */
+	@Inject(method = "travel(Lnet/minecraft/world/phys/Vec3;)V", at = @At("HEAD"))
+	private void preTravel(Vec3 vec3, CallbackInfo callbackInfo) {
+		if (!Sessility.settings().properties().rotationTriggersMotility) return;
+
+		ServerPlayer player = (ServerPlayer)(Object)this;
+		if (player.getVehicle() != null || player.isPassenger()) return;	// doesn't work right with vehicles currently
+
+		double xRot = player.getXRot();
+		double yRot = player.getYRot();
+
+		// detect player rotation
+		if (last_xRot != xRot || last_yRot != yRot)
+			player.resetLastActionTime();
+
+		// This would be a good place to detect movement, but as above non-player actions are hard to discern.
+
+		// update trackers
+		last_xRot = xRot;
+		last_yRot = yRot;
+	}
 }
