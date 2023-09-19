@@ -6,10 +6,7 @@ group = 'net.bytzo'
 version = '0.3'
 
 repositories {
-	maven {
-		name = 'JitPack'
-		url = 'https://jitpack.io'
-	}
+	mavenCentral()
 }
 
 dependencies {
@@ -17,7 +14,7 @@ dependencies {
 	mappings(loom.officialMojangMappings())
 	modImplementation('net.fabricmc:fabric-loader:0.14.21')
 
-	include(implementation(annotationProcessor('com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.9')))
+	include(implementation(annotationProcessor('io.github.llamalad7:mixinextras-fabric:0.2.0-rc.3')))
 }
 
 java {
