@@ -3,12 +3,13 @@ package net.bytzo.sessility.mixins;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.bytzo.sessility.SessilePlayer;
 import net.bytzo.sessility.Sessility;
+import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(targets = "net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket$Entry")
+@Mixin(ClientboundPlayerInfoUpdatePacket.Entry.class)
 public class ClientboundPlayerInfoUpdatePacketEntryMixin {
 	@ModifyArg(
 			method = "<init>(Lnet/minecraft/server/level/ServerPlayer;)V",

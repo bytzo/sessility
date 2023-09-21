@@ -42,7 +42,8 @@ public class MinecraftServerMixin {
 			method = "buildPlayerStatus()Lnet/minecraft/network/protocol/status/ServerStatus$Players;",
 			at = @At(
 					value = "INVOKE",
-					target = "Lit/unimi/dsi/fastutil/objects/ObjectArrayList;add(Ljava/lang/Object;)Z"
+					target = "Lit/unimi/dsi/fastutil/objects/ObjectArrayList;add(Ljava/lang/Object;)Z",
+					remap = false
 			)
 	)
 	private boolean shouldAddSessilePlayerToServerList(ObjectArrayList<GameProfile> serverList, Object gameProfile, @Local ServerPlayer player) {
