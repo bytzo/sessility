@@ -14,10 +14,8 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	public final boolean skipSessileInPlayerCount = this.get("skip-sessile-in-player-count", false);
 	public final boolean hideSessileInTabList = this.get("hide-sessile-in-tab-list", false);
 	public final boolean hideSessileInServerList = this.get("hide-sessile-in-server-list", false);
-	public final boolean advancementActionDetection = this.get("advancement-action-detection", true);
-	public final boolean advancementInteractDetection = this.get("advancement-interact-detection", true);
-	public final boolean advancementDebugMessages = this.get("advancement-debug-messages", false);
-	public final boolean rotationTriggersMotility = this.get("rotation-triggers-motility", true);
+	public final boolean detectAdvancementAction = this.get("detect-advancement-action", true);
+	public final boolean detectRotation = this.get("detect-rotation", true);
 
 	public SessilityProperties(Properties properties) {
 		super(properties);

@@ -13,15 +13,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.bytzo.sessility.Sessility;
+import net.bytzo.sessility.SessilePlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
-import org.apache.logging.log4j.LogManager;
 
 
 @Mixin(Player.class)
@@ -30,64 +26,55 @@ public abstract class PlayerMixin {
 	/* begin advancement code
 	 *
 	 * The following advancements are unused for triggering motility:
-	 *	 damage_dealt_absorbed, damage_dealt_resisted, damage_taken, damage_absorbed, damage_resisted,
-	 *	 deaths, picked_up, killed_by, leave_game, play_time, total_world_time, time_since_death,
-	 *	 time_since_rest, raid_trigger, raid_win
+	 * 	- damage_dealt_absorbed, damage_dealt_resisted, damage_taken, damage_absorbed, damage_resisted,
+	 *        deaths, picked_up, killed_by, leave_game, play_time, total_world_time, time_since_death,
+	 *        time_since_rest, raid_trigger, raid_win
 	 *
-	 * The Following advancements are probably not useful, or are already covered by other cases:
-	 *	 broken, picked_up, dropped, killed, damage_dealt, mob_kills, player_kills, sneak_time, target_hit
+	 * Bytzo has stated Sessility already marks players as motile when they:
+	 *	- Start/Abort/Finish breaking a block
+	 *	- Place a block
+	 *	- Use item(s)
+	 *	- Carry item(s) within an inventory
+	 *	- Send a chat message
+	 *	- Swing their arm (punching)
+	 *	- Sneak/Leave a bed/Sprint/Jump a vehicle/Opens a vehicle inventory/Activate their elytra
+	 *	- Punch an entity
+	 *	- Send a command
+	 *	- Set item(s) in a container
+	 *	- Select a crafting recipe
+	 *	- Click a menu button (enchanting table, loom, etc.)
+	 *
+	 * The following advancements are presumably redundant in that statement:
+	 *	- mined, used, drop, damage_blocked_by_shield, fish_caught, sleep_in_bed,
+	 *	  crafted, talked_to_villager, traded_with_villager, eat_cake_slice, fill_cauldron, use_cauldron,
+	 *	  play_noteblock, tune_noteblock, pot_flower, trigger_trapped_chest, enchant_item, play_record, bell_ring
+	 *	- any advancements starting with interact_with, inspect_, open_
+	 *
+	 * The following advancements are probably not useful, or are already covered by other cases:
+	 *	- broken, picked_up, dropped, killed, damage_dealt, mob_kills, player_kills, sneak_time, target_hit
 	 *
 	 * Any of the advancements named ???_one_cm (walk_one_cm, fly_one_cm, etc) *could* be used to track when a player moves,
 	 * except that the events are fired when the player is pushed by the environment making determining actual input difficult.
 	 *
+	 * sneak_time *could* be used to detect as long as a player is holding sneak, but if they are using a toggle that falls apart.
+	 *
 	 * Final note, surprisingly, damage_dealt is not triggered by the thorns enchantment.
- */
+	 */
 
 	/* Advancement action list.  Actions taken within the world that are deliberate and visible. */
 	private static Set<String> advancementActionList =
-		Stream.of("mined", "used", "jump", "drop", "damage_blocked_by_shield", "fish_caught", "sleep_in_bed")
+		Stream.of("jump")  // only leaving this as a set for possible future additions
 		.collect(Collectors.collectingAndThen(Collectors.toCollection(HashSet::new),Collections::unmodifiableSet));
 
-	/* Advancement interaction list.	Actions relating to interacting with the environment.
-	 * Wildcard rules apply to advancements starting with "interact_with_", "inspect_", "and open_",
-	 * so they are unlisted here. */
-	private static Set<String> advancementInteractList =
-		Stream.of("crafted", "talked_to_villager", "traded_with_villager", "eat_cake_slice", "fill_cauldron", "use_cauldron",
-							"play_noteblock", "tune_noteblock", "pot_flower", "trigger_trapped_chest", "enchant_item",
-							"play_record", "bell_ring")
-		.collect(Collectors.collectingAndThen(Collectors.toCollection(HashSet::new),Collections::unmodifiableSet));
-
-	/* optionally prints advancement debugging information */
-	private void advancement_debug(String state, String playername, String advancement) {
-		if (!Sessility.settings().properties().advancementDebugMessages) return;
-		LogManager.getLogger().info("{}: {} {}", playername, state, advancement);
-	}
-
+	@Unique
 	/* use advancements as potential motility detectors */
 	private void processAdvancement(ServerPlayer player, String advancement, int count) {
 
 		// process advancement action list
-		if (Sessility.settings().properties().advancementActionDetection && advancementActionList.contains(advancement)) {
-			advancement_debug("[action]", player.getName().getString(), advancement);
-			player.resetLastActionTime();
+		if (Sessility.settings().properties().detectAdvancementAction && advancementActionList.contains(advancement)) {
+			((SessilePlayer)(Object)player).setSessile(false);
 			return;
 		}
-
-		// process advancement interact list and wildcard filters
-		if (Sessility.settings().properties().advancementInteractDetection &&
-				 (advancementInteractList.contains(advancement) ||
-					advancement.startsWith("interact_with_") ||
-					advancement.startsWith("inspect_") ||
-					advancement.startsWith("open_")
-				 )
-			 ) {
-			advancement_debug("[interact]", player.getName().getString(), advancement);
-			player.resetLastActionTime();
-			return;
-		}
-
-		/* Unfortunately, advancements regarding movement are affected by non-player related actions.
-		 * If a reliable way to detect this is found, advancement.endsWith("_one_cm") might be usable. */
 	}
 
 	/* advancement hook for awardStat(ResourceLocation) */
@@ -111,17 +98,19 @@ public abstract class PlayerMixin {
 	/* detect when a player rotates */
 	@Inject(method = "travel(Lnet/minecraft/world/phys/Vec3;)V", at = @At("HEAD"))
 	private void preTravel(Vec3 vec3, CallbackInfo callbackInfo) {
-		if (!Sessility.settings().properties().rotationTriggersMotility) return;
+		if (!Sessility.settings().properties().detectRotation) return;
 
 		ServerPlayer player = (ServerPlayer)(Object)this;
-		if (player.getVehicle() != null || player.isPassenger()) return;	// doesn't work right with vehicles currently
+
+		// doesn't work right with vehicles currently
+		if (player.getVehicle() != null || player.isPassenger()) return;
 
 		double xRot = player.getXRot();
 		double yRot = player.getYRot();
 
 		// detect player rotation
 		if (last_xRot != xRot || last_yRot != yRot)
-			player.resetLastActionTime();
+			((SessilePlayer)(Object)player).setSessile(false);
 
 		// This would be a good place to detect movement, but as above non-player actions are hard to discern.
 

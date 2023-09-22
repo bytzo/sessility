@@ -34,10 +34,8 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 
 	@Unique
 	private boolean sessile = false;
-  @Unique
-  private long lastMotileTime = Util.getMillis();
-  @Unique
-  private long actionTimeTracker = getLastActionTime();
+	@Unique
+	private long lastMotileTime = Util.getMillis();
 
 	public ServerPlayerMixin(Level level, BlockPos spawnPos, float spawnAngle, GameProfile gameProfile) {
 		super(level, spawnPos, spawnAngle, gameProfile);
@@ -53,13 +51,6 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 		if (Sessility.settings().properties().sessileTimeout <= 0 || this.sessile) {
 			return;
 		}
-
-    // update lastMotileTime if it is older than a stale lastActionTime
-    var lastActionTime = this.getLastActionTime();
-    if (lastActionTime < actionTimeTracker) {
-      lastMotileTime = actionTimeTracker;
-      actionTimeTracker = lastActionTime;
-    }
 
 		var idleTime = Util.getMillis() - lastMotileTime;
 		var timeout = Sessility.settings().properties().sessileTimeout * 1000;
@@ -92,9 +83,9 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 	@Override
 	@Unique
 	public void setSessile(boolean sessile) {
-    // Update lastMotileTime if sessile is being set to false
-    if (sessile == false)
-      lastMotileTime = Util.getMillis();
+		// Update lastMotileTime if sessile is being set to false
+		if (sessile == false)
+			lastMotileTime = Util.getMillis();
 
 		// Only update the player's sessility if it has changed. This prevents
 		// unnecessarily broadcasting the player's display name to all players.
