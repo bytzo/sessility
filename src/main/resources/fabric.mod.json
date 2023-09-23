@@ -30,6 +30,14 @@
 			}
 		}
 	],
+	"contributors": [
+		{
+			"name": "donington",
+			"contact": {
+				"homepage": "https://github.com/donington"
+			}
+		}
+	],
 	"contact": {
 		"issues": "https://github.com/bytzo/sessility/issues",
 		"sources": "https://github.com/bytzo/sessility"
