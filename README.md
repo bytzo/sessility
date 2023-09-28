@@ -16,6 +16,7 @@ Sessility is a Minecraft Fabric utility mod that keeps track of sessile creature
 - Configure the amount of idle time before a player is considered sessile
 - Broadcast a chat message when a player becomes either sessile or motile
 - Hide sessile players in the player tab list, server player list, or server player count
+- Choose if action advancements or player rotation should be used to determine motility
 
 <img src="https://user-images.githubusercontent.com/69266322/174215671-d3220070-ce4d-4d8d-87c9-0765fc3dc0b2.png" width="720px">
 
@@ -48,17 +49,25 @@ hide-sessile-in-server-list=false
 # Default: gray
 sessile-display-color=\#aaaaaa
 
-# The message to broadcast when a player becomes motile (the opposite of sessile).
-# Default: (empty)
-message-motile=%s returned from the depths
-
 # Whether or not to exclude sessile players from the player sleeping requirement.
 # Default: true
 skip-sessile-in-sleep-count=true
 
+# Whether or not to detect player advancement actions, such jumps, as motility.
+# Default: true
+detect-advancement-action=true
+
+# Whether or not to detect player rotation as motility.
+# Default: true
+detect-rotation=true
+
 # Whether or not to hide sessile players in the player tab list.
 # Default: false
 hide-sessile-in-tab-list=false
+
+# The message to broadcast when a player becomes motile (the opposite of sessile).
+# Default: (empty)
+message-motile=%s returned from the depths
 
 # Whether or not to skip sessile players in the server player count.
 # Default: false
