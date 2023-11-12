@@ -16,6 +16,7 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	public final boolean hideSessileInServerList = this.get("hide-sessile-in-server-list", false);
 	public final boolean detectAdvancementAction = this.get("detect-advancement-action", true);
 	public final boolean detectRotation = this.get("detect-rotation", true);
+	public final boolean detectAction = this.get("detect-action", true);
 
 	public SessilityProperties(Properties properties) {
 		super(properties);

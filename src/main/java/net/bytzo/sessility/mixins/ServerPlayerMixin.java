@@ -61,8 +61,10 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 
 	@Inject(method = "resetLastActionTime()V", at = @At("HEAD"))
 	private void preResetLastActionTime(CallbackInfo callbackInfo) {
-		// If action is taken, make the player not sessile.
-		this.setSessile(false);
+		if (Sessility.settings().properties().detectAction) {
+			// If action is taken, make the player not sessile.
+			this.setSessile(false);
+		}
 	}
 
 	@Inject(method = "getTabListDisplayName()Lnet/minecraft/network/chat/Component;", at = @At("RETURN"), cancellable = true)

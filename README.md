@@ -61,6 +61,10 @@ detect-advancement-action=true
 # Default: true
 detect-rotation=true
 
+# Whether or not to detect player action (hitting, breaking blocks or moving) as motility.
+# Default: true
+detect-action=true
+
 # Whether or not to hide sessile players in the player tab list.
 # Default: false
 hide-sessile-in-tab-list=false
