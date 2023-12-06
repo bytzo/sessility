@@ -1,7 +1,6 @@
 package net.bytzo.sessility.mixins;
 
 import net.bytzo.sessility.SessilePlayer;
-import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,7 +18,6 @@ import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,10 +27,6 @@ import net.minecraft.world.scores.PlayerTeam;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player implements SessilePlayer {
-	@Shadow
-	@Final
-	private static Logger LOGGER;
-
 	@Shadow
 	@Final
 	public MinecraftServer server;
@@ -78,8 +72,7 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 		if (this.sessile) {
 			var profileName = Component.literal(this.getGameProfile().getName());
 			var teamFormattedName = PlayerTeam.formatNameForTeam(this.getTeam(), profileName);
-			var displayColor = TextColor.parseColor(Sessility.settings().properties().sessileDisplayColor).getOrThrow(false, LOGGER::error);
-			var displayName = teamFormattedName.withStyle(Style.EMPTY.withColor(displayColor));
+			var displayName = teamFormattedName.withStyle(Style.EMPTY.withColor(Sessility.settings().properties().sessileDisplayColor));
 
 			callbackInfo.setReturnValue(displayName);
 		}
