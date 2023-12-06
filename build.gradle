@@ -10,11 +10,9 @@ repositories {
 }
 
 dependencies {
-	minecraft('com.mojang:minecraft:1.20.2')
+	minecraft('com.mojang:minecraft:1.20.3')
 	mappings(loom.officialMojangMappings())
-	modImplementation('net.fabricmc:fabric-loader:0.14.22')
-
-	include(implementation(annotationProcessor('io.github.llamalad7:mixinextras-fabric:0.2.0-rc.3')))
+	modImplementation('net.fabricmc:fabric-loader:0.15.0')
 }
 
 java {
