@@ -25,6 +25,7 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	public final boolean detectAdvancementAction = this.get("detect-advancement-action", true);
 	public final boolean detectRotation = this.get("detect-rotation", true);
 	public final boolean detectAction = this.get("detect-action", true);
+	public final boolean detectBoatPaddle = this.get("detect-boat-paddle", true);
 
 	public SessilityProperties(Properties properties) {
 		super(properties);
