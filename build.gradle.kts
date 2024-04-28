@@ -1,5 +1,5 @@
 plugins {
-	id("fabric-loom").version("1.4.4")
+	id("fabric-loom").version("1.6.11")
 }
 
 group = "net.bytzo"
