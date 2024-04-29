@@ -33,47 +33,54 @@ Sessility also allows you to configure whether or not sessile players are displa
 ## Configuration file
 
 ```properties
-# The idle time in seconds before a player is considered sessile.
-# Default: 120
-sessile-timeout=300
-
-# The message to broadcast when a player becomes sessile.
-# Default: (empty)
-message-sessile=%s became a sessile creature
-
-# Whether or not to hide sessile players in the server player list.
-# Default: false
-hide-sessile-in-server-list=false
-
-# The color of the sessile display name. This can either be a color name or a six-digit hex code.
-# Default: gray
-sessile-display-color=\#aaaaaa
-
-# Whether or not to exclude sessile players from the player sleeping requirement.
-# Default: true
-skip-sessile-in-sleep-count=true
-
-# Whether or not to detect player advancement actions, such jumps, as motility.
-# Default: true
-detect-advancement-action=true
-
-# Whether or not to detect player rotation as motility.
-# Default: true
-detect-rotation=true
-
-# Whether or not to detect player action (hitting, breaking blocks or moving) as motility.
+# Detect player actions (attacking, using, etc.) as motility.
 # Default: true
 detect-action=true
 
-# Whether or not to hide sessile players in the player tab list.
+# Detect some player advancement actions (such as jumping) as motility.
+# (warning: may cause some false positives)
+# Default: false
+detect-advancement-action=false
+
+# Detect player boat paddling as motility.
+# Default: true
+detect-boat-paddle=true
+
+# Detect player rotation as motility.
+# Default: true
+detect-rotation=true
+
+# Hide sessile players in the server player list.
+# Default: false
+hide-sessile-in-server-list=false
+
+# Hide sessile players in the player tab list.
 # Default: false
 hide-sessile-in-tab-list=false
 
 # The message to broadcast when a player becomes motile (the opposite of sessile).
+# (note: leave empty to disable motile messages)
 # Default: (empty)
 message-motile=%s returned from the depths
 
-# Whether or not to skip sessile players in the server player count.
+# The message to broadcast when a player becomes sessile.
+# (note: leave empty to disable sessile messages)
+# Default: (empty)
+message-sessile=%s became a sessile creature
+
+# The color of the sessile display name. This can be either a color name or a six-digit hex code.
+# Default: gray
+sessile-display-color=\#aaaaaa
+
+# The idle time (in seconds) before a player is considered sessile.
+# Default: 240
+sessile-timeout=720
+
+# Exclude sessile players from the server player count.
 # Default: false
 skip-sessile-in-player-count=false
+
+# Exclude sessile players from the player sleeping requirement.
+# Default: true
+skip-sessile-in-sleep-count=true
 ```
