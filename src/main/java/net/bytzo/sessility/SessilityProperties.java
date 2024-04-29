@@ -2,19 +2,15 @@ package net.bytzo.sessility;
 
 import java.util.Properties;
 
-import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.dedicated.Settings;
-import org.slf4j.Logger;
 
 public class SessilityProperties extends Settings<SessilityProperties> {
-	private static final Logger LOGGER = LogUtils.getLogger();
-
 	public final int sessileTimeout = this.get("sessile-timeout", 120);
 	public final TextColor sessileDisplayColor = this.get("sessile-display-color",
-			color -> TextColor.parseColor(color).getOrThrow(false, LOGGER::error),
+			color -> TextColor.parseColor(color).getOrThrow(),
 			TextColor::serialize, TextColor.fromLegacyFormat(ChatFormatting.GRAY));
 	public final String messageSessile = this.get("message-sessile", "");
 	public final String messageMotile = this.get("message-motile", "");

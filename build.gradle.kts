@@ -10,14 +10,14 @@ repositories {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:1.20.4")
+	minecraft("com.mojang:minecraft:1.20.6")
 	mappings(loom.officialMojangMappings())
-	modImplementation("net.fabricmc:fabric-loader:0.15.0")
+	modImplementation("net.fabricmc:fabric-loader:0.15.10")
 }
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
