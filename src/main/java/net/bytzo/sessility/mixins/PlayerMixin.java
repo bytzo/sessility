@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.bytzo.sessility.Sessility;
@@ -119,5 +120,11 @@ public abstract class PlayerMixin {
 		// update trackers
 		this.last_xRot = xRot;
 		this.last_yRot = yRot;
+	}
+
+	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;awardStat(Lnet/minecraft/resources/ResourceLocation;)V", ordinal = 0))
+	private void preventPlayTimeStatAward(Player player, ResourceLocation resourceLocation) {
+		if (((SessilePlayer) player).isSessile() && Sessility.settings().properties().skipPlayTimeStat) return;
+		player.awardStat(resourceLocation);
 	}
 }

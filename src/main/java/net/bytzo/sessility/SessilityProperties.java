@@ -22,6 +22,7 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	public final int sessileTimeout = this.get("sessile-timeout", 240);
 	public final boolean skipSessileInPlayerCount = this.get("skip-sessile-in-player-count", false);
 	public final boolean skipSessileInSleepCount = this.get("skip-sessile-in-sleep-count", true);
+	public final boolean skipPlayTimeStat = this.get("skip-play-time-stat", false);
 
 	public SessilityProperties(Properties properties) {
 		super(properties);
