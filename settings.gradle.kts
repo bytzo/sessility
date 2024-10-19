@@ -9,3 +9,5 @@ pluginManagement {
 }
 
 rootProject.name = "sessility"
+
+include(":fabric-mod")

@@ -34,4 +34,5 @@ jobs:
             uses: actions/upload-artifact@v4
             with:
                 name: ${{ steps.build_info.outputs.repository_name }}-build-artifacts-${{ steps.build_info.outputs.sha_short }}
-                path: build/libs/
+                path: |
+                    fabric-mod/build/libs/

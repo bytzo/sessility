@@ -23,8 +23,13 @@ java {
 
 loom {
 	serverOnlyMinecraftJar()
+
+	runs.configureEach {
+		ideConfigGenerated(true)
+	}
 }
 
 tasks.named<Jar>("jar") {
-	from("LICENSE")
+	base.archivesName = "${rootProject.name}-${base.archivesName.get()}"
+	from(rootDir.toPath().resolve("LICENSE.txt"))
 }
