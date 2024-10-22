@@ -42,10 +42,6 @@ detect-action=true
 # Default: false
 detect-advancement-action=false
 
-# Detect player boat paddling as motility.
-# Default: true
-detect-boat-paddle=true
-
 # Detect player rotation as motility.
 # Default: true
 detect-rotation=true

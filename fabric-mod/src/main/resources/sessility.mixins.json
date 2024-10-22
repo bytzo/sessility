@@ -4,7 +4,6 @@
 	"required": true,
 	"package": "net.bytzo.sessility.mixins",
 	"server": [
-		"AbstractBoatMixin",
 		"ClientboundPlayerInfoUpdatePacketEntryMixin",
 		"MinecraftServerMixin",
 		"PlayerMixin",
