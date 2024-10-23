@@ -9,7 +9,6 @@ import net.minecraft.server.dedicated.Settings;
 
 public class SessilityProperties extends Settings<SessilityProperties> {
 	public final boolean detectAction = this.get("detect-action", true);
-	public final boolean detectAdvancementAction = this.get("detect-advancement-action", false);
 	public final boolean detectRotation = this.get("detect-rotation", true);
 	public final boolean hideSessileInServerList = this.get("hide-sessile-in-server-list", false);
 	public final boolean hideSessileInTabList = this.get("hide-sessile-in-tab-list", false);
