@@ -2,8 +2,10 @@ package net.bytzo.sessility;
 
 import java.util.Properties;
 
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.dedicated.Settings;
 
@@ -12,8 +14,14 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	public final boolean detectRotation = this.get("detect-rotation", true);
 	public final boolean hideSessileInServerList = this.get("hide-sessile-in-server-list", false);
 	public final boolean hideSessileInTabList = this.get("hide-sessile-in-tab-list", false);
-	public final String messageMotile = this.get("message-motile", "");
-	public final String messageSessile = this.get("message-sessile", "");
+	public final Component messageMotile = this.get("message-motile",
+			SessilityProperties::deserializeComponent,
+			SessilityProperties::serializeComponent,
+			Component.empty());
+	public final Component messageSessile = this.get("message-sessile",
+			SessilityProperties::deserializeComponent,
+			SessilityProperties::serializeComponent,
+			Component.empty());
 	public final TextColor sessileDisplayColor = this.get("sessile-display-color",
 			color -> TextColor.parseColor(color).getOrThrow(),
 			TextColor::serialize, TextColor.fromLegacyFormat(ChatFormatting.GRAY));
@@ -29,4 +37,25 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	protected SessilityProperties reload(RegistryAccess registryAccess, Properties properties) {
 		return new SessilityProperties(properties);
 	}
+
+	private static Component deserializeComponent(String string) {
+		Component result;
+		if (string.isBlank()) {
+			result = Component.empty();
+		} else {
+			try {
+				result = Component.Serializer.fromJson(string, RegistryAccess.EMPTY);
+			} catch (JsonSyntaxException e) {
+				result = Component.translatable(string).withStyle(ChatFormatting.YELLOW);
+			}
+		}
+
+		return result;
+	}
+
+	private static String serializeComponent(Component component) {
+		return ComponentUtils.isEmptyContents(component) ?
+				"" : Component.Serializer.toJson(component, RegistryAccess.EMPTY);
+	}
+
 }

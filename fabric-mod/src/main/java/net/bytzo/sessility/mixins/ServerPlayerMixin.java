@@ -1,5 +1,6 @@
 package net.bytzo.sessility.mixins;
 
+import net.bytzo.sessility.ComponentUtils;
 import net.bytzo.sessility.SessilePlayer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.mojang.authlib.GameProfile;
 
 import net.bytzo.sessility.Sessility;
-import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -104,13 +104,13 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 			}
 
 			// Broadcasts the custom sessile or motile message, if present.
-			String broadcastMessage = sessile ?
+			var broadcastMessage = sessile ?
 					Sessility.settings().properties().messageSessile :
 					Sessility.settings().properties().messageMotile;
-			if (!broadcastMessage.isBlank()) {
-				var translatedMessage = Component.translatable(broadcastMessage, this.getGameProfile().getName());
-				var formattedMessage = Component.literal(translatedMessage.getString()).withStyle(ChatFormatting.YELLOW);
-				this.server.getPlayerList().broadcastSystemMessage(formattedMessage, false);
+			if (!ComponentUtils.isEmptyContents(broadcastMessage)) {
+				var profileName = this.getGameProfile().getName();
+				var argMessage = ComponentUtils.componentWithArgs(broadcastMessage, profileName);
+				this.server.getPlayerList().broadcastSystemMessage(argMessage, false);
 			}
 		}
 	}
