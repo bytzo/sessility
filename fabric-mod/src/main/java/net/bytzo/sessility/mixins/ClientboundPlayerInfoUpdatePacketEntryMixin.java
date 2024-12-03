@@ -15,7 +15,7 @@ public class ClientboundPlayerInfoUpdatePacketEntryMixin {
 			method = "<init>(Lnet/minecraft/server/level/ServerPlayer;)V",
 			at = @At(
 					value = "INVOKE",
-					target = "Lnet/minecraft/network/protocol/game/ClientboundPlayerInfoUpdatePacket$Entry;<init>(Ljava/util/UUID;Lcom/mojang/authlib/GameProfile;ZILnet/minecraft/world/level/GameType;Lnet/minecraft/network/chat/Component;ILnet/minecraft/network/chat/RemoteChatSession$Data;)V"
+					target = "Lnet/minecraft/network/protocol/game/ClientboundPlayerInfoUpdatePacket$Entry;<init>(Ljava/util/UUID;Lcom/mojang/authlib/GameProfile;ZILnet/minecraft/world/level/GameType;Lnet/minecraft/network/chat/Component;ZILnet/minecraft/network/chat/RemoteChatSession$Data;)V"
 			),
 			index = 2
 	)
