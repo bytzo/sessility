@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "sessility",
-	"version": "0.6.4",
+	"version": "0.7",
 	"environment": "server",
 	"entrypoints": {
 		"server": [

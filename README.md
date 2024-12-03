@@ -49,15 +49,18 @@ hide-sessile-in-server-list=false
 # Default: false
 hide-sessile-in-tab-list=false
 
-# The message to broadcast when a player becomes motile (the opposite of sessile).
+# The message to broadcast when a player becomes motile (the opposite of sessile),
+# formatted as raw JSON text. The arguments of all translatable components will contain 
+# one entry for the player name. See https://minecraft.wiki/w/Raw_JSON_text_format.
 # (note: leave empty to disable motile messages)
 # Default: (empty)
-message-motile=%s returned from the depths
+message-motile={"translate"\:"%s returned from the depths","color"\:"yellow"}
 
-# The message to broadcast when a player becomes sessile.
-# (note: leave empty to disable sessile messages)
+# The message to broadcast when a player becomes sessile, formatted as raw JSON text.
+# The arguments of all translatable components will contain one entry for the player name.
+# See https://minecraft.wiki/w/Raw_JSON_text_format.
 # Default: (empty)
-message-sessile=%s became a sessile creature
+message-sessile={"translate"\:"%s became a sessile creature","color"\:"yellow"}
 
 # The color of the sessile display name. This can be either a color name or a six-digit hex code.
 # Default: gray
