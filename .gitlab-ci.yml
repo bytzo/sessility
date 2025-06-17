@@ -1,0 +1,23 @@
+default:
+  image: mcr.microsoft.com/openjdk/jdk:21-mariner
+
+
+
+gradle-build:
+
+  variables:
+    GRADLE_USER_HOME: $CI_PROJECT_DIR/.gradle
+
+  script:
+    - ./gradlew build
+
+  artifacts:
+    paths:
+      - fabric-mod/build/libs/*
+
+  cache:
+    paths:
+      - .gradle/wrapper
+    key:
+      files:
+        - gradle/wrapper/gradle-wrapper.properties
