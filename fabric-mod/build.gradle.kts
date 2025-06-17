@@ -10,9 +10,9 @@ repositories {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:1.21.5")
+	minecraft("com.mojang:minecraft:1.21.6")
 	mappings(loom.officialMojangMappings())
-	modImplementation("net.fabricmc:fabric-loader:0.16.10")
+	modImplementation("net.fabricmc:fabric-loader:0.16.14")
 }
 
 java {

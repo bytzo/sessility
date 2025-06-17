@@ -3,11 +3,14 @@ package net.bytzo.sessility;
 import java.util.Properties;
 
 import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.dedicated.Settings;
+import net.minecraft.util.StrictJsonParser;
 
 public class SessilityProperties extends Settings<SessilityProperties> {
 	public final boolean detectAction = this.get("detect-action", true);
@@ -44,7 +47,8 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 			result = Component.empty();
 		} else {
 			try {
-				result = Component.Serializer.fromJson(string, RegistryAccess.EMPTY);
+				result = ComponentSerialization.CODEC.parse(JsonOps.INSTANCE, StrictJsonParser.parse(string))
+						.getOrThrow();
 			} catch (JsonSyntaxException e) {
 				result = Component.translatable(string).withStyle(ChatFormatting.YELLOW);
 			}
@@ -54,8 +58,9 @@ public class SessilityProperties extends Settings<SessilityProperties> {
 	}
 
 	private static String serializeComponent(Component component) {
-		return ComponentUtils.isEmptyContents(component) ?
-				"" : Component.Serializer.toJson(component, RegistryAccess.EMPTY);
+		return ComponentUtils.isEmptyContents(component) ? "" :
+				ComponentSerialization.CODEC.encodeStart(JsonOps.INSTANCE, component)
+				.getOrThrow().toString();
 	}
 
 }

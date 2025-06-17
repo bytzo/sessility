@@ -15,7 +15,6 @@ import com.mojang.authlib.GameProfile;
 
 import net.bytzo.sessility.Sessility;
 import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket;
@@ -37,8 +36,8 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 	@Unique
 	private long lastMotileTime = Util.getMillis();
 
-	public ServerPlayerMixin(Level level, BlockPos spawnPos, float spawnAngle, GameProfile gameProfile) {
-		super(level, spawnPos, spawnAngle, gameProfile);
+	public ServerPlayerMixin(Level level, GameProfile gameProfile) {
+		super(level, gameProfile);
 	}
 
 	@Inject(method = "tick()V", at = @At(value = "RETURN"))
