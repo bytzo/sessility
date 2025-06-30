@@ -17,7 +17,7 @@
 	"depends": {
 		"fabricloader": ">=0.16.14",
 		"java": ">=21",
-		"minecraft": "1.21.6",
+		"minecraft": "1.21.7",
 		"mixinextras": ">=0.4.1"
 	},
 	"name": "Sessility",
