@@ -69,7 +69,7 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 	private void postGetTabListDisplayName(CallbackInfoReturnable<Component> callbackInfo) {
 		// If sessile, change the color of the player's display name.
 		if (this.sessile) {
-			var profileName = Component.literal(this.getGameProfile().getName());
+			var profileName = Component.literal(this.getGameProfile().name());
 			var teamFormattedName = PlayerTeam.formatNameForTeam(this.getTeam(), profileName);
 			var displayName = teamFormattedName.withStyle(Style.EMPTY.withColor(Sessility.settings().properties().sessileDisplayColor));
 
@@ -107,7 +107,7 @@ public abstract class ServerPlayerMixin extends Player implements SessilePlayer 
 					Sessility.settings().properties().messageSessile :
 					Sessility.settings().properties().messageMotile;
 			if (!ComponentUtils.isEmptyContents(broadcastMessage)) {
-				var profileName = this.getGameProfile().getName();
+				var profileName = this.getGameProfile().name();
 				var argMessage = ComponentUtils.componentWithArgs(broadcastMessage, profileName);
 				this.server.getPlayerList().broadcastSystemMessage(argMessage, false);
 			}
