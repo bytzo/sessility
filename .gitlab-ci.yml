@@ -1,5 +1,5 @@
 default:
-  image: mcr.microsoft.com/openjdk/jdk:21-mariner
+  image: mcr.microsoft.com/openjdk/jdk:25-mariner
 
 
 
