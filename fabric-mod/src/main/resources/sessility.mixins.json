@@ -1,6 +1,6 @@
 {
 	"minVersion": "0.8",
-	"compatibilityLevel": "JAVA_21",
+	"compatibilityLevel": "JAVA_25",
 	"required": true,
 	"package": "net.bytzo.sessility.mixins",
 	"server": [

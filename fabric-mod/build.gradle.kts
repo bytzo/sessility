@@ -1,5 +1,5 @@
 plugins {
-	id("net.fabricmc.fabric-loom-remap").version("1.14.5")
+	id("net.fabricmc.fabric-loom").version("1.15.5")
 }
 
 group = "net.bytzo"
@@ -10,14 +10,13 @@ repositories {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:1.21.11")
-	mappings(loom.officialMojangMappings())
-	modImplementation("net.fabricmc:fabric-loader:0.18.2")
+	minecraft("com.mojang:minecraft:26.1")
+	implementation("net.fabricmc:fabric-loader:0.18.4")
 }
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
+		languageVersion = JavaLanguageVersion.of(25)
 	}
 }
 
