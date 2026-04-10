@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:26.1.1")
+	minecraft("com.mojang:minecraft:26.1.2")
 	implementation("net.fabricmc:fabric-loader:0.18.4")
 }
 
