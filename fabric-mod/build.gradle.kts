@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "net.bytzo"
-version = "0.7.10"
+version = "0.7.11"
 
 repositories {
 	mavenCentral()
